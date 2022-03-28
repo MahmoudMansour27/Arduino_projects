@@ -1,0 +1,39 @@
+#include <Ultrasonic.h>
+#include <Servo.h>
+Ultrasonic ultrasonic(12, 13);
+Servo mag;
+Servo cont1;
+int pos = 0;
+int result;
+
+void setup() {
+  Serial.begin(9600);
+  mag.attach(9);
+  cont1.attach(10);
+  mag.write(30);
+  cont1.write(5);
+  }
+
+void loop() { 
+  delay(500);
+  Serial.print("Distance in CM: ");
+  Serial.println(ultrasonic.distanceRead());
+  result = ultrasonic.distanceRead();
+  if(result==16)
+  {
+    Serial.print("Servo Start\n");
+    mag.write(100);
+    delay(20000);
+    mag.write(200);
+    
+    Serial.print("Servo end");
+  }
+  if(result==17)
+  {
+    Serial.print("Servo Start\n");
+    mag.write(80);
+    delay(20000);
+    mag.write(200);
+    Serial.print("Servo end");
+  }
+}
